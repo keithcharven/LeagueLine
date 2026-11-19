@@ -72,6 +72,7 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/google", "/error").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/google").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/health", "/api/leagues/**", "/api/teams/**").permitAll()

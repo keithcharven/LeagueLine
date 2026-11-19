@@ -92,4 +92,22 @@ public class DashboardController {
         payload.put("leagues", leagueRepository.findAll());
         return ResponseEntity.ok(payload);
     }
+
+    @GetMapping("/manager/team/players")
+    @PreAuthorize("hasRole('TEAM_MANAGER')")
+    public ResponseEntity<?> managerRoster() {
+        return ResponseEntity.ok(List.of());
+    }
+
+    @GetMapping("/manager/matches")
+    @PreAuthorize("hasRole('TEAM_MANAGER')")
+    public ResponseEntity<?> managerMatches() {
+        return ResponseEntity.ok(List.of());
+    }
+
+    @GetMapping("/organizer/results/pending")
+    @PreAuthorize("hasRole('ORGANIZER')")
+    public ResponseEntity<?> pendingResults() {
+        return ResponseEntity.ok(List.of());
+    }
 }
