@@ -10,6 +10,7 @@ import {
   Settings2,
   Shield,
   Trophy,
+  User,
   UserPlus,
   Users,
   X,
@@ -41,7 +42,10 @@ export default function DashboardLayout() {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const links = NAV[user?.role] || [];
+  const links = [
+    ...(NAV[user?.role] || []),
+    { to: '/profile', label: 'Profile & Security', icon: User },
+  ];
 
   const handleLogout = async () => {
     await logout();

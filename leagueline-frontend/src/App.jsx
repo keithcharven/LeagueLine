@@ -6,6 +6,9 @@ import HubPage from './pages/HubPage.jsx';
 import TeamProfilePage from './pages/TeamProfilePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
+import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import UnauthorizedPage from './pages/UnauthorizedPage.jsx';
 import ManagerDashboard from './pages/manager/ManagerDashboard.jsx';
 import RosterPage from './pages/manager/RosterPage.jsx';
@@ -18,17 +21,23 @@ import ComingSoon from './pages/ComingSoon.jsx';
 export default function App() {
   return (
     <Routes>
-      {/* Public Routes */}
       <Route element={<PublicLayout />}>
         <Route index element={<HubPage />} />
         <Route path="leagues/:leagueId" element={<HubPage />} />
         <Route path="teams/:teamId" element={<TeamProfilePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="unauthorized" element={<UnauthorizedPage />} />
       </Route>
 
-      {/* Team Manager Protected Routes */}
+      <Route element={<ProtectedRoute roles={['ORGANIZER', 'TEAM_MANAGER', 'FAN']} />}>
+        <Route path="profile" element={<DashboardLayout />}>
+          <Route index element={<ProfilePage />} />
+        </Route>
+      </Route>
+
       <Route element={<ProtectedRoute roles={['TEAM_MANAGER']} />}>
         <Route path="manager" element={<DashboardLayout />}>
           <Route index element={<ManagerDashboard />} />
@@ -38,7 +47,6 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* League Organizer Protected Routes */}
       <Route element={<ProtectedRoute roles={['ORGANIZER']} />}>
         <Route path="organizer" element={<DashboardLayout />}>
           <Route index element={<OrganizerDashboard />} />
@@ -49,7 +57,6 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* Fan / Player Protected Routes */}
       <Route element={<ProtectedRoute roles={['FAN']} />}>
         <Route path="fan" element={<DashboardLayout />}>
           <Route index element={<FanDashboard />} />
