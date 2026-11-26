@@ -27,7 +27,8 @@ export default function LoginPage() {
 
   const redirectAfterLogin = (profile) => {
     const fallback = getDashboardPath(profile.role);
-    navigate(from && from !== '/login' && from !== '/register' ? from : fallback, { replace: true });
+    const blocked = ['/login', '/register', '/forgot-password', '/reset-password'];
+    navigate(from && !blocked.includes(from) ? from : fallback, { replace: true });
   };
 
   const handleSubmit = async (e) => {
@@ -88,7 +89,12 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="label" htmlFor="login-password">Password</label>
+            <div className="flex items-center justify-between">
+              <label className="label" htmlFor="login-password">Password</label>
+              <Link to="/forgot-password" className="mb-1.5 text-xs text-volt hover:underline">
+                Forgot password?
+              </Link>
+            </div>
             <div className="relative">
               <input
                 id="login-password"

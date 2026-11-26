@@ -33,6 +33,18 @@ public class User {
     @Column(name = "full_name", nullable = false, length = 150)
     private String fullName;
 
+    @Column(name = "display_name", length = 60)
+    private String displayName;
+
+    @Column(name = "bio", length = 300)
+    private String bio;
+
+    @Column(name = "organization", length = 100)
+    private String organization;
+
+    @Column(name = "phone_number", length = 30)
+    private String phoneNumber;
+
     @Column(name = "avatar_url", length = 500)
     private String avatarUrl;
 
@@ -66,6 +78,18 @@ public class User {
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public String getDisplayName() { return displayName; }
+    public void setDisplayName(String displayName) { this.displayName = displayName; }
+
+    public String getBio() { return bio; }
+    public void setBio(String bio) { this.bio = bio; }
+
+    public String getOrganization() { return organization; }
+    public void setOrganization(String organization) { this.organization = organization; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getAvatarUrl() { return avatarUrl; }
     public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }

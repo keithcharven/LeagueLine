@@ -16,7 +16,6 @@ export function AuthProvider({ children }) {
     queryClient.clear();
   }, [queryClient]);
 
-  // Always verify persisted JWT against Spring Boot /api/auth/me on app load
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) {
@@ -44,6 +43,16 @@ export function AuthProvider({ children }) {
     setUser(profile);
   }, []);
 
+  const refreshUser = useCallback(async () => {
+    try {
+      const profile = await fetchCurrentUser();
+      setUser(profile);
+      return profile;
+    } catch {
+      return null;
+    }
+  }, []);
+
   const logout = useCallback(async () => {
     try {
       if (localStorage.getItem(TOKEN_KEY)) {
@@ -62,8 +71,8 @@ export function AuthProvider({ children }) {
   }, [clearSession]);
 
   const value = useMemo(
-    () => ({ user, authLoading, login, logout, isAuthed: !!user }),
-    [user, authLoading, login, logout]
+    () => ({ user, authLoading, login, logout, refreshUser, isAuthed: !!user }),
+    [user, authLoading, login, logout, refreshUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
